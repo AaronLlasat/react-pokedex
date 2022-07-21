@@ -1,10 +1,11 @@
-import PokedexCardList from "../../pokedex-card-list/pokedex-card-list.component";
+import './pokedex.scss';
+import PokedexCardList from "../../pokedex-card-list/pokedex-card-list.component"
 import { useEffect, useState } from "react";
-import { render } from "@testing-library/react";
+import { ReactComponent as Loader } from "../../../assets/Spinner-1s-200px.svg";
 
 
 
-const Pokedex = ({ name, types, image }) => {
+const Pokedex = () => {
     const [pokemons, setPokemons] = useState([]);
     const filteredPokemons = []
 
@@ -40,7 +41,7 @@ const Pokedex = ({ name, types, image }) => {
             try {
                 const res = await fetch(pokemon.url);
                 const json = await res.json();
-                
+
                 let indexPokemon = {
                     name: json.name,
                     id: json.id,
@@ -61,8 +62,8 @@ const Pokedex = ({ name, types, image }) => {
                     pokemonRepeated = false
                 }
 
-                if (filteredPokemons.length===151) {
-                    filteredPokemons.sort((a,b) =>{
+                if (filteredPokemons.length === 151) {
+                    filteredPokemons.sort((a, b) => {
                         return a.id - b.id;
                     })
                     setPokemons(filteredPokemons);
@@ -77,10 +78,17 @@ const Pokedex = ({ name, types, image }) => {
 
 
     return !pokemons.length
-        ? <h1>Loading</h1>
+        ? <div className="loader-container"><Loader /></div>
         :
-        (< div >
-            <PokedexCardList pokemonList={pokemons}></PokedexCardList>
+        (< div className='parent-container'>
+            <section className='pokemons-section'>
+                <PokedexCardList pokemonList={pokemons}></PokedexCardList>
+            </section>
+
+            <aside className='aside-panel'>
+                <img src="" alt="poke-pic"></img>
+                <h2>XD</h2>
+            </aside>
         </div >
         )
 }

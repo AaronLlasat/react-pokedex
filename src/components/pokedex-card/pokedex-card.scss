@@ -5,13 +5,26 @@
     text-align: center;
     background-color: #EEEEEE;
     border-radius: 3px;
+    border: 1px solid black;
     padding: 1rem;
     margin: .5rem;
-    border-width: .25rem;
     transition: all .2s ease-in-out;
     box-shadow: 4px 4px 8px 0px rgba( 0, 0, 0, 0.2 );
+    
 
     &:hover{
         transform: scale(1.1);
+    }
+
+    .id-container{
+        width: 55%;
+        margin: 0 auto;
+    }
+
+    .pokemon-id {
+        width: 100%;
+        background-color: #ffcc01;
+        border: 1px solid black;
+        border-radius: 10px;
     }
 }
