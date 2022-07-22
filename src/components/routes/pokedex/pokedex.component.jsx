@@ -2,8 +2,8 @@ import './pokedex.scss';
 import PokedexCardList from "../../pokedex-card-list/pokedex-card-list.component"
 import { useEffect, useState } from "react";
 import { ReactComponent as Loader } from "../../../assets/Spinner-1s-200px.svg";
-
-
+import Scroll from '../../scroll/scroll.component';
+import PokemonInfoPanel from '../../pokemon-info-panel/pokemon-info-panel.component';
 
 const Pokedex = () => {
     const [pokemons, setPokemons] = useState([]);
@@ -11,13 +11,9 @@ const Pokedex = () => {
 
     useEffect(() => {
         try {
-            const fetchPokemon = async () => {
-                const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
-                const json = await res.json();
-                // console.log("JSON FETCH", json.results);
-                gatherPokemonInfo(json.results);
-            }
-            fetchPokemon();
+            !pokemons.length
+                ? fetchPokemon()
+                : console.log("Already fetched:", pokemons)
 
         } catch (error) {
             console.log(error);
@@ -25,6 +21,14 @@ const Pokedex = () => {
 
 
     }, [])
+
+    const fetchPokemon = async () => {
+        const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+        const json = await res.json();
+        // console.log("JSON FETCH", json.results);
+        gatherPokemonInfo(json.results);
+    }
+
 
     const createTypes = (types) => {
         let typesArray = []
@@ -46,7 +50,10 @@ const Pokedex = () => {
                     name: json.name,
                     id: json.id,
                     types: createTypes(json.types),
-                    image: json.sprites.front_default
+                    image: json.sprites.front_default,
+                    weight: json.weight,
+                    height: json.height,
+
                 }
 
                 filteredPokemons.map(pokemon => {
@@ -76,20 +83,28 @@ const Pokedex = () => {
 
     }
 
+    const getPokemonCardInfo = (info) => {
+        for (const key in info) {
+            let element = document.getElementsByClassName(`aside-pokemon-${key}`);
+            key === "img"
+                ?element[0].style.backgroundImage = `url(${info[key]})`
+                : element[0].innerHTML = info[key];
+        }
+    }
+
 
     return !pokemons.length
         ? <div className="loader-container"><Loader /></div>
         :
-        (< div className='parent-container'>
-            <section className='pokemons-section'>
-                <PokedexCardList pokemonList={pokemons}></PokedexCardList>
-            </section>
-
-            <aside className='aside-panel'>
-                <img src="" alt="poke-pic"></img>
-                <h2>XD</h2>
-            </aside>
-        </div >
+        (
+            < div className='parent-container' >
+                <PokemonInfoPanel />
+                <Scroll>
+                    <section className='pokemons-section'>
+                        <PokedexCardList pokemonList={pokemons} anotherChildToParent={getPokemonCardInfo}></PokedexCardList>
+                    </section>
+                </Scroll>
+            </div >
         )
 }
 
