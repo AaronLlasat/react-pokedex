@@ -25,22 +25,51 @@ const Pokedex = () => {
     const fetchPokemon = async () => {
         const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
         const json = await res.json();
-        // console.log("JSON FETCH", json.results);
         gatherPokemonInfo(json.results);
     }
 
 
-    const createTypes = (types) => {
-        let typesArray = []
-        types.map(type => {
-            typesArray.push(type.type.name)
+    const getStats = (stats) => {
+        let statsArray = []
+        stats.map(stats => {
+            const statObject = {
+                name: stats.stat.name,
+                base_stat: stats.base_stat
+            }
+            statsArray.push(statObject);
         })
-        return typesArray;
+        return statsArray;
+    }
+
+    const getThisInfo = (info, path) => {
+        let array = []
+        info.map(object => {
+            array.push(object[path].name)
+        })
+        return array;
+    }
+
+    const getAbout = async (id) => {
+        let about = "";
+        try {
+            const res = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}/`);
+            const data = await res.json();
+            data.flavor_text_entries.map(entry => {
+                if (entry.language.name === "en") {
+                    about = entry.flavor_text;
+                    return;
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+
+        return about;
     }
 
     const gatherPokemonInfo = (pokemonsJSON) => {
         let pokemonRepeated = false;
-        // console.log("POKEMONS PRE 2 FETCH", pokemonsJSON)
         pokemonsJSON.map(async pokemon => {
             try {
                 const res = await fetch(pokemon.url);
@@ -49,12 +78,15 @@ const Pokedex = () => {
                 let indexPokemon = {
                     name: json.name,
                     id: json.id,
-                    types: createTypes(json.types),
+                    types: getThisInfo(json.types, "type"),
                     image: json.sprites.front_default,
                     weight: json.weight,
                     height: json.height,
-
+                    abilities: getThisInfo(json.abilities, "ability"),
+                    stats: getStats(json.stats),
+                    about: await getAbout(json.id)
                 }
+
 
                 filteredPokemons.map(pokemon => {
                     if (pokemon.name === indexPokemon.name) {
@@ -84,11 +116,20 @@ const Pokedex = () => {
     }
 
     const getPokemonCardInfo = (info) => {
+        console.log(info)
         for (const key in info) {
             let element = document.getElementsByClassName(`aside-pokemon-${key}`);
-            key === "img"
-                ?element[0].style.backgroundImage = `url(${info[key]})`
-                : element[0].innerHTML = info[key];
+            if (key === "img") {
+                element[0].style.backgroundImage = `url(${info[key]})`
+            } else if (key === "stats") {
+                element[0].innerHTML = ""
+                info[key].map(stat => {
+                    element[0].innerHTML = element[0].innerHTML + "\n" + stat.name + "(" + stat.base_stat + ")";
+                })
+            } else {
+                element[0].innerHTML = info[key];
+            }
+
         }
     }
 

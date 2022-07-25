@@ -6,10 +6,13 @@ const PokedexCard = ({pokemonInfo, childToParent }) => {
     let pokemonObject = {
         name : pokemonInfo.name,
         id: pokemonInfo.id,
+        about: pokemonInfo.about,
         img : pokemonInfo.image,
         types: pokemonInfo.types,
         height: pokemonInfo.height,
-        weight: pokemonInfo.weight
+        weight: pokemonInfo.weight,
+        abilities: pokemonInfo.abilities,
+        stats : pokemonInfo.stats
     }
 
     const passInfoOnClick = () => {     
@@ -49,6 +52,7 @@ const PokedexCard = ({pokemonInfo, childToParent }) => {
                 <h2 className='pokemon-name'>{pokemonInfo.name}</h2>
                 <p className='pokemon-types'>{pokemonInfo.types.toString()}</p>
                 {
+                    //console.log(pokemonInfo.moves)
                     // pokemonObject.types.map((type, i) => {
                     //     return <PokemonType key={i} type={type}>{type}</PokemonType>
                     // })
