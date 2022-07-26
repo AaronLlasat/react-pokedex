@@ -1,21 +1,23 @@
 import './pokedex-card.scss';
 // import {} from '../../assets/types';
 import PokemonType from '../pokemon-type/pokemon-type-component';
-const PokedexCard = ({pokemonInfo, childToParent }) => {
+
+const PokedexCard = ({ pokemonInfo, childToParent }) => {
+    
 
     let pokemonObject = {
-        name : pokemonInfo.name,
+        name: pokemonInfo.name,
         id: pokemonInfo.id,
         about: pokemonInfo.about,
-        img : pokemonInfo.image,
+        img: pokemonInfo.image,
         types: pokemonInfo.types,
         height: pokemonInfo.height,
         weight: pokemonInfo.weight,
         abilities: pokemonInfo.abilities,
-        stats : pokemonInfo.stats
+        stats: pokemonInfo.stats
     }
 
-    const passInfoOnClick = () => {     
+    const passInfoOnClick = () => {
         return pokemonObject;
     }
 
@@ -24,18 +26,18 @@ const PokedexCard = ({pokemonInfo, childToParent }) => {
 
         switch (IDlen) {
             case 1:
-                pokemonObject.id = "#00"+pokemonObject.id;
+                pokemonObject.id = "#00" + pokemonObject.id;
                 return pokemonObject.id;
             case 2:
-                pokemonObject.id = "#0"+pokemonObject.id;
-                return "#0"+id;
+                pokemonObject.id = "#0" + pokemonObject.id;
+                return "#0" + id;
             case 3:
-                pokemonObject.id = "#"+pokemonObject.id;
-                return "#"+id;
+                pokemonObject.id = "#" + pokemonObject.id;
+                return "#" + id;
             default:
                 break;
         }
-        
+
     }
 
 
@@ -59,6 +61,8 @@ const PokedexCard = ({pokemonInfo, childToParent }) => {
                 }
             </div>
         </div>
+
+        
     )
 
 }

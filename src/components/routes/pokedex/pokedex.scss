@@ -6,7 +6,14 @@
 
   .pokemons-section {
     height: 100vh;
-    width: 70vw;
+    width: 100vw;
+    z-index: 1;
+  }
+
+  .show-panel {
+    background-color: red;
+    height: 100vh;
+    width: 100vw;
   }
 
 }

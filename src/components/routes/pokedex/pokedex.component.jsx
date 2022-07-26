@@ -7,6 +7,8 @@ import PokemonInfoPanel from '../../pokemon-info-panel/pokemon-info-panel.compon
 
 const Pokedex = () => {
     const [pokemons, setPokemons] = useState([]);
+    const [isShown, setIsShown] = useState(false);
+    const [selectedPokemon, setSelectedPokemon] = useState({});
     const filteredPokemons = []
 
     useEffect(() => {
@@ -116,21 +118,8 @@ const Pokedex = () => {
     }
 
     const getPokemonCardInfo = (info) => {
-        console.log(info)
-        for (const key in info) {
-            let element = document.getElementsByClassName(`aside-pokemon-${key}`);
-            if (key === "img") {
-                element[0].style.backgroundImage = `url(${info[key]})`
-            } else if (key === "stats") {
-                element[0].innerHTML = ""
-                info[key].map(stat => {
-                    element[0].innerHTML = element[0].innerHTML + "\n" + stat.name + "(" + stat.base_stat + ")";
-                })
-            } else {
-                element[0].innerHTML = info[key];
-            }
-
-        }
+        setIsShown(current => !current);
+        setSelectedPokemon(info);
     }
 
 
@@ -139,12 +128,20 @@ const Pokedex = () => {
         :
         (
             < div className='parent-container' >
-                <PokemonInfoPanel />
-                <Scroll>
-                    <section className='pokemons-section'>
-                        <PokedexCardList pokemonList={pokemons} anotherChildToParent={getPokemonCardInfo}></PokedexCardList>
-                    </section>
-                </Scroll>
+              
+                <section className='pokemon-info-panel'>
+                    {isShown && 
+                    <PokemonInfoPanel pokemonInfo={selectedPokemon} windowState={setIsShown}
+                    />}
+                </section>
+               
+                {/* {isShown && */}
+                    <Scroll>
+                        <section className='pokemons-section'>
+                            <PokedexCardList pokemonList={pokemons} anotherChildToParent={getPokemonCardInfo}></PokedexCardList>
+                        </section>
+                    </Scroll>
+                {/* } */}
             </div >
         )
 }
