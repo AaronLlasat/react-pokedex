@@ -1,19 +1,54 @@
 import './pokemon-info-panel.scss';
+import { useEffect } from 'react';
 
 const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
-    const { name, id, img, about, types, height, weight, abilities, stats } = pokemonInfo;
-    let formatedStats = ""
-    stats.map(stat => {
-        formatedStats = formatedStats + "\n" + stat.name + "(" + stat.base_stat + ")"
-    })
+    let { name, id, img, about, types, height, weight, abilities, stats } = pokemonInfo;
+    let formatedStats = "";
+    let formatedAbilities = "";
+    let pokemonAsideGradient = ""
 
     const closeWindow = () => {
         return false;
     }
 
+    useEffect(() => {
+        formatData();
+    }, [])
+
+    const formatData = () => {
+        height = `${height / 10}m`;
+        weight = `${weight / 10}kg`;
+
+        let statsSymbolsArray = ["❤", "⚔", "🛡", "✪", "🛡️", "👣"]
+
+        let statsDiv = document.getElementsByClassName("aside-pokemon-stats");
+        statsDiv[0].innerHTML = "";
+        stats.map((stat, i) => {
+            if (i === 1 || i === 3) {
+                statsDiv[0].innerHTML = statsDiv[0].innerHTML + `${statsSymbolsArray[i]} ${stat.name}(${stat.base_stat})` + "<br/>"
+            } else {
+                statsDiv[0].innerHTML = statsDiv[0].innerHTML + `${statsSymbolsArray[i]} ${stat.name}(${stat.base_stat}) `
+            }
+        })
+
+        let abilitiesDiv = document.getElementsByClassName("aside-pokemon-abilities");
+        abilitiesDiv[0].innerHTML = "";
+        abilities.map(ability => {
+            abilitiesDiv[0].innerHTML = abilitiesDiv[0].innerHTML + `<b>✦${ability.name}: <b>`
+            abilitiesDiv[0].innerHTML = abilitiesDiv[0].innerHTML + `${ability.description}` + "<br/>"
+        })
+    }
+
+    if (pokemonInfo.types.length === 2) {
+        pokemonAsideGradient = `linear-gradient(rgba(var(--${pokemonInfo.types[0]}), 0.5) 25%, rgba(var(--${pokemonInfo.types[1]}), 0.7) 90%)`
+    } else {
+        pokemonAsideGradient = `linear-gradient(rgba(var(--${pokemonInfo.types[0]}), 0.6) 100%, rgba(var(--${pokemonInfo.types[0]}), 0.6) 90%)`
+    }
+
+
     return (
         <div className='info-panel-parent-container'>
-            <aside className='aside-panel'>
+            <aside className='aside-panel' style={{ background: pokemonAsideGradient }}>
 
                 <div className="first-info-container">
                     <h1 className='aside-pokemon-id'>{id}</h1>
@@ -47,16 +82,16 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
                     </div>
                     <div className="info-section">
                         <p>Abilities</p>
-                        <div className='aside-pokemon-abilities info-div'>{abilities.toString()}</div>
+                        <div className='aside-pokemon-abilities info-div' style={{ "textTransform": "capitalize" }}>{formatedAbilities}</div>
                     </div>
                     <div className="info-section">
                         <p>Stats</p>
-                        <div className='aside-pokemon-stats info-div'>{formatedStats}</div>
+                        <div className='aside-pokemon-stats info-div' style={{ "textTransform": "uppercase" }}>{formatedStats}</div>
                     </div>
 
                 </div>
-                <div className='close-button-container' onClick={() => windowState(closeWindow())}>
-                    <div className='close-button'>X</div>
+                <div className='close-button-container' >
+                    <div className='close-button' onClick={() => windowState(closeWindow())}>X</div>
                 </div>
 
             </aside>

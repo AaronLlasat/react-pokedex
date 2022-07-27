@@ -48,7 +48,41 @@ const Pokedex = () => {
         info.map(object => {
             array.push(object[path].name)
         })
-        return array;
+ 
+        if (path === "ability") {
+            return getAbilitiesDescription(array);
+        } else {
+            return array;
+        }
+
+    }
+
+    const getAbilitiesDescription = (abilities) => {
+        let abilitiesArray = []
+        try {
+            abilities.map(async ability => {
+                let abilitiesObject = {
+                    name: ability,
+                    description: ""
+                };
+
+                const res = await fetch(`https://pokeapi.co/api/v2/ability/${ability}/`);
+                const data = await res.json();
+                //console.log(data)
+
+                data.effect_entries.map(async entry => {
+                    if (entry.language.name === "en") {
+                        abilitiesObject.description = entry.effect;
+                        abilitiesArray.push(abilitiesObject);
+                        return;
+                    }
+                })
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+        return abilitiesArray;
     }
 
     const getAbout = async (id) => {
@@ -88,7 +122,7 @@ const Pokedex = () => {
                     stats: getStats(json.stats),
                     about: await getAbout(json.id)
                 }
-
+                
 
                 filteredPokemons.map(pokemon => {
                     if (pokemon.name === indexPokemon.name) {
@@ -128,19 +162,19 @@ const Pokedex = () => {
         :
         (
             < div className='parent-container' >
-              
+
                 <section className='pokemon-info-panel'>
-                    {isShown && 
-                    <PokemonInfoPanel pokemonInfo={selectedPokemon} windowState={setIsShown}
-                    />}
+                    {isShown &&
+                        <PokemonInfoPanel pokemonInfo={selectedPokemon} windowState={setIsShown}
+                        />}
                 </section>
-               
+
                 {/* {isShown && */}
-                    <Scroll>
-                        <section className='pokemons-section'>
-                            <PokedexCardList pokemonList={pokemons} anotherChildToParent={getPokemonCardInfo}></PokedexCardList>
-                        </section>
-                    </Scroll>
+                <Scroll>
+                    <section className='pokemons-section'>
+                        <PokedexCardList pokemonList={pokemons} anotherChildToParent={getPokemonCardInfo}></PokedexCardList>
+                    </section>
+                </Scroll>
                 {/* } */}
             </div >
         )

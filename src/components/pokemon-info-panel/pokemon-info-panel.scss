@@ -1,18 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+:root {
+    --grass: 95, 189, 88;
+    --bug: 146, 188, 44;
+    --dark: 89, 87, 97;
+    --dragon: 12, 105, 200;
+    --electric: 242, 217, 78;
+    --fairy: 238, 144, 230;
+    --fighting: 211, 66, 95;
+    --fire: 220, 135, 47;
+    --flying: 161, 187, 236;
+    --ghost: 95, 109, 188;
+    --ground: 218, 124, 77;
+    --ice: 117, 208, 193;
+    --normal: 160, 162, 159;
+    --poison: 183, 99, 207;
+    --psychic: 255, 44, 168;
+    --rock: 163, 140, 33;
+    --steel: 86, 149, 163;
+    --water: 83, 157, 223;
+}
+
 .info-panel-parent-container {
     width: 100vw;
     height: 82vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', sans-serif;
     font-size: 1em;
-    z-index: 10;
 
     .aside-panel {
-        background-color: rgba($color: #000000, $alpha: 0.3);
         display: flex;
         max-width: 55vw;
         margin: 0 auto;
@@ -32,8 +51,9 @@
                 background-size: 100%;
                 background-position: center;
                 background-repeat: no-repeat;
-                height: 150px;
+                height: 200px;
                 width: 100%;
+                min-width: 150px;
             }
         }
 
@@ -41,21 +61,14 @@
         & .second-info-container {
             display: flex;
             flex-direction: column;
-
-
-            p {
-                font-weight: bold;
-                font-size: 0.7em;
-            }
-
         }
 
         .first-info-container {
             width: 25%;
-            background: rgba($color: #000000, $alpha: 0.5);
+            background: rgba($color: white, $alpha: 0.3);
             border-radius: 1em;
             padding: 20px;
-            margin: 1em;
+            margin: 2.5em;
             align-items: center;
 
             p {
@@ -63,6 +76,7 @@
                 font-size: 1.2em;
                 text-align: center;
                 margin: 0.3em;
+                font-weight: bold;
             }
 
             .info-div {
@@ -76,55 +90,102 @@
 
             .aside-pokemon-name {
                 margin: 0;
-                font-size: 2em;
-                font-family: 'VT323', monospace;
-                font-weight: 100;
-            }
-
-        }
-
-        .second-info-container {
-            height: 20%;
-            justify-content: center;
-
-            .info-div {
-                background: rgba($color: #000000, $alpha: 0.5);
-                border-radius: 0.5em;
-                padding: 10px;
-
                 font-size: 1.2em;
-                font-family: 'VT323', monospace;
+                font-family: 'Press Start 2P', sans-serif;
+                -webkit-text-stroke-width: 0px;
+                -webkit-text-stroke-color: white;
+                color: black;
+                text-shadow:
+                    1px 1px 0 white,
+                    1px 1px 0 white,
+                    1px -1px 0 white,
+                    -1px 1px 0 white,
+                    1px 1px 0 white
             }
 
-            .info-section {
-                padding: 15px;
+            .aside-pokemon-id {
+                color: white;
+                text-shadow:
+                    2px 2px 0 #000,
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    1px 1px 0 #000
             }
-
-
         }
+
     }
 
+    .second-info-container {
+        height: 20%;
+        justify-content: center;
 
+        .info-div {
+            background: rgba($color: white, $alpha: 0.3);
+            border-radius: 0.5em;
+            padding: 10px;
 
-    .close-button-container {
-        height: 500px;
+            font-size: 1.2em;
+            font-family: 'VT323', monospace;
+        }
 
-        .close-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .info-section {
+            padding: 15px;
+        }
+
+        & .aside-pokemon-about,
+        & .aside-pokemon-abilities{
+            text-align: justify;
+        }
+
+        .aside-pokemon-stats {
+            width: 46%;
+        }
+
+        p {
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: black;
             color: white;
-            font-size: smaller;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 100%;
+            text-shadow:
+            2px 2px 0 #000,
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000
+        }
+
+
+    }
+}
+
+
+
+.close-button-container {
+    height: 500px;
+
+    .close-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: smaller;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+        margin-right: 15px;
+        background: rgba($color: #000000, $alpha: 0.8);
+        border-radius: 100px;
+        user-select: none;
+
+        &:hover {
             cursor: pointer;
-            height: 25px;
-            width: 25px;
-            margin-right: 15px;
-            margin-top: 15px;
-            background: rgba($color: #000000, $alpha: 0.8);
-            border-radius: 100px;
-            user-select: none;
+            filter: brightness(50%);
         }
     }
+
+
 
 }
+

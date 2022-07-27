@@ -3,7 +3,6 @@ import './pokedex-card.scss';
 import PokemonType from '../pokemon-type/pokemon-type-component';
 
 const PokedexCard = ({ pokemonInfo, childToParent }) => {
-    
 
     let pokemonObject = {
         name: pokemonInfo.name,
@@ -16,6 +15,7 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
         abilities: pokemonInfo.abilities,
         stats: pokemonInfo.stats
     }
+
 
     const passInfoOnClick = () => {
         return pokemonObject;
@@ -40,11 +40,16 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
 
     }
 
-
+    let pokemonCardGradient = ""
+    if (pokemonInfo.types.length === 2) {
+        pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonInfo.types[0]}), 0.5) 25%, rgba(var(--${pokemonInfo.types[1]}), 0.7) 90%)`
+    } else {
+        pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonInfo.types[0]}), 0.6) 100%, rgba(var(--${pokemonInfo.types[0]}), 0.6) 90%)`
+    }
 
     return (
 
-        <div className='pokemon-container' onClick={() => childToParent(passInfoOnClick())}>
+        <div className='pokemon-container' onClick={() => childToParent(passInfoOnClick())} style={{ background: pokemonCardGradient}}>
             <div className='id-container'>
                 <h1 className='pokemon-id'>{formatIDNumber(pokemonInfo.id)}</h1>
             </div>
@@ -62,7 +67,7 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
             </div>
         </div>
 
-        
+
     )
 
 }
