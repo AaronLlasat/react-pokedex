@@ -6,6 +6,8 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
     let formatedStats = "";
     let formatedAbilities = "";
     let pokemonAsideGradient = ""
+    height = `${height / 10}m`;
+    weight = `${weight / 10}kg`;
 
     const closeWindow = () => {
         return false;
@@ -16,9 +18,6 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
     }, [])
 
     const formatData = () => {
-        height = `${height / 10}m`;
-        weight = `${weight / 10}kg`;
-
         let statsSymbolsArray = ["❤", "⚔", "🛡", "✪", "🛡️", "👣"]
 
         let statsDiv = document.getElementsByClassName("aside-pokemon-stats");

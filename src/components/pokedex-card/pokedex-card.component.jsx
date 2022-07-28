@@ -41,15 +41,21 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
     }
 
     let pokemonCardGradient = ""
+    let pokemonTypeOne = "";
+    let pokemonTypeTwo = "";
     if (pokemonInfo.types.length === 2) {
-        pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonInfo.types[0]}), 0.5) 25%, rgba(var(--${pokemonInfo.types[1]}), 0.7) 90%)`
+        pokemonTypeOne = pokemonInfo.types[0];
+        pokemonTypeTwo = pokemonInfo.types[1];
+        pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonTypeOne}), 0.5) 25%, rgba(var(--${pokemonTypeTwo}), 0.7) 90%)`
+
     } else {
-        pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonInfo.types[0]}), 0.6) 100%, rgba(var(--${pokemonInfo.types[0]}), 0.6) 90%)`
+        pokemonTypeOne = pokemonInfo.types[0];
+        pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonTypeOne}), 0.6) 100%, rgba(var(--${pokemonTypeOne}), 0.6) 90%)`
     }
 
     return (
 
-        <div className='pokemon-container' onClick={() => childToParent(passInfoOnClick())} style={{ background: pokemonCardGradient}}>
+        <div className='pokemon-container' onClick={() => childToParent(passInfoOnClick())} style={{ background: pokemonCardGradient }}>
             <div className='id-container'>
                 <h1 className='pokemon-id'>{formatIDNumber(pokemonInfo.id)}</h1>
             </div>
@@ -57,13 +63,25 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
             <img src={pokemonInfo.image} alt='pokemon_pic' className='pokemon-picture' />
             <div className='text-container'>
                 <h2 className='pokemon-name'>{pokemonInfo.name}</h2>
-                <p className='pokemon-types'>{pokemonInfo.types.toString()}</p>
+                {/* <p className='pokemon-types'>{pokemonInfo.types.toString()}</p> */}
+
                 {
                     //console.log(pokemonInfo.moves)
                     // pokemonObject.types.map((type, i) => {
                     //     return <PokemonType key={i} type={type}>{type}</PokemonType>
                     // })
                 }
+            </div>
+            <div className='pokemon-types-container'>
+                <div className="pokemon-type-one" style={{ backgroundColor: `rgba(var(--${pokemonTypeOne}))`, backgroundImage: `url("types/${pokemonTypeOne}.svg");` }}>
+                    <b>{pokemonTypeOne.charAt(0).toUpperCase()}</b>
+                </div>
+                {pokemonTypeTwo !== "" &&
+                    <div className="pokemon-type-two" style={{ backgroundColor: `rgba(var(--${pokemonTypeTwo}))`, backgroundImage: `url("types/${pokemonTypeTwo}.svg");` }}>
+                        <b>{pokemonTypeTwo.charAt(0).toUpperCase()}</b>
+                    </div>
+                }
+
             </div>
         </div>
 
