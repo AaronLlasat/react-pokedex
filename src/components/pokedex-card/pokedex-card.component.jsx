@@ -1,8 +1,22 @@
 import './pokedex-card.scss';
 // import {} from '../../assets/types';
 import PokemonType from '../pokemon-type/pokemon-type-component';
+import { useEffect } from 'react';
+
 
 const PokedexCard = ({ pokemonInfo, childToParent }) => {
+
+    const importAll = (r) => {
+        return r.keys().map(r);
+    };
+
+    const allData = importAll(
+        require.context("./types", false, /\.svg$/)
+    )
+    
+    useEffect(()=> {
+
+    })
 
     let pokemonObject = {
         name: pokemonInfo.name,
@@ -74,7 +88,10 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
             </div>
             <div className='pokemon-types-container'>
                 <div className="pokemon-type-one" style={{ backgroundColor: `rgba(var(--${pokemonTypeOne}))`, backgroundImage: `url("types/${pokemonTypeOne}.svg");` }}>
-                    <b>{pokemonTypeOne.charAt(0).toUpperCase()}</b>
+                    {/* <b>{pokemonTypeOne.charAt(0).toUpperCase()}</b> */}
+                </div>
+                <div style={{width:"100px", height:"100px", backgroundColor:"red"}}>
+                    <img src={allData[0]} style={{width:"100px", height:"100px"}}></img>
                 </div>
                 {pokemonTypeTwo !== "" &&
                     <div className="pokemon-type-two" style={{ backgroundColor: `rgba(var(--${pokemonTypeTwo}))`, backgroundImage: `url("types/${pokemonTypeTwo}.svg");` }}>
