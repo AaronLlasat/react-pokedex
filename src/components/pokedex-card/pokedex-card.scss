@@ -83,21 +83,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 
 
     & .pokemon-type-one,
     & .pokemon-type-two{
         width:20px;
         height:20px;
-        background-size: 20px;
         border-radius: 100px;
         padding: 5px;
-        background-repeat: no-repeat;
-        background-position: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
 }

@@ -5,18 +5,27 @@ import { useEffect } from 'react';
 
 
 const PokedexCard = ({ pokemonInfo, childToParent }) => {
+    const allTypes = ['bug', 'dark', 'dragon', 'electric', 'fairy', 'fighting', 'fire',
+        'flying', 'ghost', 'grass', 'ground', 'ice', 'normal', 'poison', 'psychic', 'rock', 'steel', 'water']
 
-    const importAll = (r) => {
+    const matchTypes = (typeIndex) => {
+        let index = 0;
+        allTypes.map((type, i) => {
+            if (type === pokemonInfo.types[typeIndex]) {
+                index = i;
+                return;
+            }
+        })
+        return index;
+    }
+
+    const importPokemonSVG = (r) => {
         return r.keys().map(r);
     };
 
-    const allData = importAll(
+    const allData = importPokemonSVG(
         require.context("./types", false, /\.svg$/)
     )
-    
-    useEffect(()=> {
-
-    })
 
     let pokemonObject = {
         name: pokemonInfo.name,
@@ -77,25 +86,14 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
             <img src={pokemonInfo.image} alt='pokemon_pic' className='pokemon-picture' />
             <div className='text-container'>
                 <h2 className='pokemon-name'>{pokemonInfo.name}</h2>
-                {/* <p className='pokemon-types'>{pokemonInfo.types.toString()}</p> */}
-
-                {
-                    //console.log(pokemonInfo.moves)
-                    // pokemonObject.types.map((type, i) => {
-                    //     return <PokemonType key={i} type={type}>{type}</PokemonType>
-                    // })
-                }
             </div>
             <div className='pokemon-types-container'>
-                <div className="pokemon-type-one" style={{ backgroundColor: `rgba(var(--${pokemonTypeOne}))`, backgroundImage: `url("types/${pokemonTypeOne}.svg");` }}>
-                    {/* <b>{pokemonTypeOne.charAt(0).toUpperCase()}</b> */}
-                </div>
-                <div style={{width:"100px", height:"100px", backgroundColor:"red"}}>
-                    <img src={allData[0]} style={{width:"100px", height:"100px"}}></img>
+                <div className="pokemon-type-one" style={{ backgroundColor: `rgba(var(--${pokemonTypeOne}))`, backgroundImage: `url("types/${pokemonTypeOne}.svg")` }}>
+                    <img src={allData[matchTypes(0)]} style={{ width: "20px", height: "20px" }}></img>
                 </div>
                 {pokemonTypeTwo !== "" &&
-                    <div className="pokemon-type-two" style={{ backgroundColor: `rgba(var(--${pokemonTypeTwo}))`, backgroundImage: `url("types/${pokemonTypeTwo}.svg");` }}>
-                        <b>{pokemonTypeTwo.charAt(0).toUpperCase()}</b>
+                    <div className="pokemon-type-two" style={{ backgroundColor: `rgba(var(--${pokemonTypeTwo}))`, backgroundImage: `url("types/${pokemonTypeTwo}.svg")` }}>
+                       <img src={allData[matchTypes(1)]} style={{ width: "20px", height: "20px" }}></img>
                     </div>
                 }
 

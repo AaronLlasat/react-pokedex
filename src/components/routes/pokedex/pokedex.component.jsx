@@ -25,9 +25,14 @@ const Pokedex = () => {
     }, [])
 
     const fetchPokemon = async () => {
-        const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
-        const json = await res.json();
-        gatherPokemonInfo(json.results);
+        try {
+            const res = await fetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+            const json = await res.json();
+            gatherPokemonInfo(json.results);
+        } catch (error) {
+            console.log(error);
+        }
+
     }
 
 
@@ -48,7 +53,7 @@ const Pokedex = () => {
         info.map(object => {
             array.push(object[path].name)
         })
- 
+
         if (path === "ability") {
             return getAbilitiesDescription(array);
         } else {
@@ -122,7 +127,7 @@ const Pokedex = () => {
                     stats: getStats(json.stats),
                     about: await getAbout(json.id)
                 }
-                
+
 
                 filteredPokemons.map(pokemon => {
                     if (pokemon.name === indexPokemon.name) {

@@ -1,6 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
+@mixin screen-max($max) {
+    @media (max-width: $max) {
+        @content
+    }
+}
+
+;
+
 :root {
     --grass: 95, 189, 88;
     --bug: 146, 188, 44;
@@ -33,11 +41,19 @@
 
     .aside-panel {
         display: flex;
-        max-width: 55vw;
+        width: 55vw;
+        height: auto;
         margin: 0 auto;
+        max-height: 80vh;
         align-items: center;
         border: 1px solid black;
         border-radius: 10px;
+
+        @include screen-max(1130px) {
+            align-items: flex-start;
+            flex-wrap: wrap;
+
+        }
 
 
         .picture-container {
@@ -54,6 +70,7 @@
                 height: 200px;
                 width: 100%;
                 min-width: 150px;
+                max-width: 200px;
             }
         }
 
@@ -61,6 +78,11 @@
         & .second-info-container {
             display: flex;
             flex-direction: column;
+
+            @include screen-max(1130px) {
+                width: 80%;
+                flex-direction: row;
+            }
         }
 
         .first-info-container {
@@ -70,6 +92,24 @@
             padding: 20px;
             margin: 2.5em;
             align-items: center;
+
+            @include screen-max(1130px) {
+                width: 100%;
+                justify-content: center;
+                flex-direction: column;
+          
+            }
+
+            .misc-info{   
+                width: 100%;
+                @include screen-max(1130px) {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    justify-content: center;
+                    gap: 1em;
+                }
+            }
 
             p {
                 font-family: 'VT323', monospace;
@@ -89,6 +129,9 @@
 
 
             .aside-pokemon-name {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
                 margin: 0;
                 font-size: 1.2em;
                 font-family: 'Press Start 2P', sans-serif;
@@ -100,10 +143,14 @@
                     1px 1px 0 white,
                     1px -1px 0 white,
                     -1px 1px 0 white,
-                    1px 1px 0 white
+                    1px 1px 0 white;
+
             }
 
             .aside-pokemon-id {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
                 color: white;
                 text-shadow:
                     2px 2px 0 #000,
@@ -117,8 +164,16 @@
     }
 
     .second-info-container {
-        height: 20%;
+        height: 100%;
         justify-content: center;
+
+
+        @include screen-max(1130px) {
+            width: 100%;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+
 
         .info-div {
             background: rgba($color: white, $alpha: 0.3);
@@ -131,10 +186,15 @@
 
         .info-section {
             padding: 15px;
+
+            @include screen-max(1130px) {
+                width: 35%;
+
+            }
         }
 
         & .aside-pokemon-about,
-        & .aside-pokemon-abilities{
+        & .aside-pokemon-abilities {
             text-align: justify;
         }
 
@@ -146,23 +206,25 @@
             -webkit-text-stroke-width: 0.5px;
             -webkit-text-stroke-color: black;
             color: white;
-            font-size: 100%;
             text-shadow:
-            2px 2px 0 #000,
-            -1px -1px 0 #000,
-            1px -1px 0 #000,
-            -1px 1px 0 #000,
-            1px 1px 0 #000
+                2px 2px 0 #000,
+                -1px -1px 0 #000,
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000
         }
 
 
     }
+
 }
 
 
 
 .close-button-container {
-    height: 500px;
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: auto;
 
     .close-button {
         display: flex;
@@ -174,7 +236,8 @@
         cursor: pointer;
         height: 30px;
         width: 30px;
-        margin-right: 15px;
+        margin-right: 10px;
+        margin-top: 15px;
         background: rgba($color: #000000, $alpha: 0.8);
         border-radius: 100px;
         user-select: none;
@@ -183,9 +246,8 @@
             cursor: pointer;
             filter: brightness(50%);
         }
+
+        @include screen-max(1130px) {}
     }
 
-
-
 }
-

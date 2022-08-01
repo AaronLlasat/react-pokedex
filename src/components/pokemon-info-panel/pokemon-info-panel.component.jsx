@@ -50,26 +50,30 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
             <aside className='aside-panel' style={{ background: pokemonAsideGradient }}>
 
                 <div className="first-info-container">
-                    <h1 className='aside-pokemon-id'>{id}</h1>
-                    <h2 className='aside-pokemon-name' style={{ "textTransform": "capitalize" }}>{name}</h2>
-                    <div className="picture-container">
-                        <div className='aside-pokemon-img' style={{ backgroundImage: `url(${img})` }}></div>
+                    <div className="info-section">
+                        <h1 className='aside-pokemon-id'>{id}</h1>
+                        <h2 className='aside-pokemon-name' style={{ "textTransform": "capitalize" }}>{name}</h2>
+                        <div className="picture-container">
+                            <div className='aside-pokemon-img' style={{ backgroundImage: `url(${img})` }}></div>
+                        </div>
+                    </div>
+                    <div className="misc-info">
+                        <div className="info-section">
+                            <p>Types</p>
+                            <div className='aside-pokemon-types info-div'>{types.toString()}</div>
+                        </div>
+
+                        <div className="info-section">
+                            <p>Height</p>
+                            <div className='aside-pokemon-height info-div'>{height}</div>
+                        </div>
+
+                        <div className="info-section">
+                            <p>Weight</p>
+                            <div className='aside-pokemon-weight info-div'>{weight}</div>
+                        </div>
                     </div>
 
-                    <div className="info-section">
-                        <p>Types</p>
-                        <div className='aside-pokemon-types info-div'>{types.toString()}</div>
-                    </div>
-
-                    <div className="info-section">
-                        <p>Height</p>
-                        <div className='aside-pokemon-height info-div'>{height}</div>
-                    </div>
-
-                    <div className="info-section">
-                        <p>Weight</p>
-                        <div className='aside-pokemon-weight info-div'>{weight}</div>
-                    </div>
 
                 </div>
 
