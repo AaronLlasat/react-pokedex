@@ -31,11 +31,35 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
         })
 
         let abilitiesDiv = document.getElementsByClassName("aside-pokemon-abilities");
+        let abilitiesDescriptionLength = 0;
         abilitiesDiv[0].innerHTML = "";
         abilities.map(ability => {
+            abilitiesDescriptionLength = abilitiesDescriptionLength + ability.description.length;
             abilitiesDiv[0].innerHTML = abilitiesDiv[0].innerHTML + `<b>✦${ability.name}: <b>`
             abilitiesDiv[0].innerHTML = abilitiesDiv[0].innerHTML + `${ability.description}` + "<br/>"
         })
+        checkDescriptionLength(abilitiesDescriptionLength);
+
+        var bigPanelElement = document.getElementsByClassName("aside-panel");
+        bigPanelElement[0].addEventListener("mousemove", () => {
+            var secondInfoContainerElement = document.getElementsByClassName("second-info-container");
+            if (bigPanelElement[0].scrollHeight >= (bigPanelElement[0].offsetHeight + 40)) {
+                secondInfoContainerElement[0].classList.replace("short", "long");
+            } else {
+                secondInfoContainerElement[0].classList.replace("long", "short");
+            }
+        })
+    }
+
+    const checkDescriptionLength = (abilitiesLength) => {
+        let descriptionClass = abilitiesLength > 1000
+            ? "long"
+            : "short"
+
+        var element = document.getElementsByClassName("second-info-container");
+        var secondElement = document.getElementsByClassName("aside-panel");
+        console.log(secondElement[0].scrollHeight, secondElement[0].offsetHeight)
+        element[0].classList.add(descriptionClass);
     }
 
     if (pokemonInfo.types.length === 2) {
@@ -48,6 +72,9 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
     return (
         <div className='info-panel-parent-container'>
             <aside className='aside-panel' style={{ background: pokemonAsideGradient }}>
+                <div className='close-button-container' >
+                    <div className='close-button' onClick={() => windowState(closeWindow())}>X</div>
+                </div>
 
                 <div className="first-info-container">
                     <div className="info-section">
@@ -77,7 +104,7 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
 
                 </div>
 
-                <div className="second-info-container">
+                <div className="second-info-container" >
 
                     <div className='info-section'>
                         <p>About</p>
@@ -93,10 +120,6 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
                     </div>
 
                 </div>
-                <div className='close-button-container' >
-                    <div className='close-button' onClick={() => windowState(closeWindow())}>X</div>
-                </div>
-
             </aside>
         </div>
     )
