@@ -1,7 +1,4 @@
 import './pokedex-card.scss';
-// import {} from '../../assets/types';
-import PokemonType from '../pokemon-type/pokemon-type-component';
-import { useEffect } from 'react';
 
 
 const PokedexCard = ({ pokemonInfo, childToParent }) => {
@@ -69,6 +66,7 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
     if (pokemonInfo.types.length === 2) {
         pokemonTypeOne = pokemonInfo.types[0];
         pokemonTypeTwo = pokemonInfo.types[1];
+
         pokemonCardGradient = `linear-gradient(rgba(var(--${pokemonTypeOne}), 0.5) 25%, rgba(var(--${pokemonTypeTwo}), 0.7) 90%)`
 
     } else {
@@ -88,12 +86,12 @@ const PokedexCard = ({ pokemonInfo, childToParent }) => {
                 <h2 className='pokemon-name'>{pokemonInfo.name}</h2>
             </div>
             <div className='pokemon-types-container'>
-                <div className="pokemon-type-one" style={{ backgroundColor: `rgba(var(--${pokemonTypeOne}))`, backgroundImage: `url("types/${pokemonTypeOne}.svg")` }}>
+                <div className="pokemon-type-one" style={{ backgroundColor: `rgba(var(--${pokemonTypeOne}))` }}>
                     <img src={allData[matchTypes(0)]} style={{ width: "20px", height: "20px" }}></img>
                 </div>
                 {pokemonTypeTwo !== "" &&
-                    <div className="pokemon-type-two" style={{ backgroundColor: `rgba(var(--${pokemonTypeTwo}))`, backgroundImage: `url("types/${pokemonTypeTwo}.svg")` }}>
-                       <img src={allData[matchTypes(1)]} style={{ width: "20px", height: "20px" }}></img>
+                    <div className="pokemon-type-two" style={{ backgroundColor: `rgba(var(--${pokemonTypeTwo}))` }}>
+                        <img src={allData[matchTypes(1)]} style={{ width: "20px", height: "20px" }}></img>
                     </div>
                 }
 
