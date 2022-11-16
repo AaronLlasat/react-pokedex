@@ -9,9 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Navigation />}>
-        <Route index element={<Home />} />
-        <Route path="pokedex" element={<Pokedex />} />
-        <Route path="auth" element={<Authentication />} />
+        <Route index element={<Pokedex />} />
       </Route>
     </Routes>
 

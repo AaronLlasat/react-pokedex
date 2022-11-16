@@ -1,33 +1,22 @@
 .navigation {
-    height: 70px;
+    height: 100px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 50px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-top: 25px;
   
     .nav-logo-container {
       height: 100%;
-      width: 70px;
+      width: 100%;
       padding: 25px 10px;
+      justify-content: end;
     }
-  
-    .nav-links-container {
-      width: 50%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-  
-      .nav-link {
-        text-decoration: none;
-        color: black;
-        padding: 10px 15px;
-        cursor: pointer;
 
-        &:visited{
-          text-decoration: none;
-          color: black;
-        }
-      }
+    .logo {
+      width: 100%;
+      height: 80%;
     }
+  
   }
