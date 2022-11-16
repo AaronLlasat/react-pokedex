@@ -58,7 +58,7 @@ const PokemonInfoPanel = ({ pokemonInfo, windowState }) => {
 
         var element = document.getElementsByClassName("second-info-container");
         var secondElement = document.getElementsByClassName("aside-panel");
-        console.log(secondElement[0].scrollHeight, secondElement[0].offsetHeight)
+        // console.log(secondElement[0].scrollHeight, secondElement[0].offsetHeight)
         element[0].classList.add(descriptionClass);
     }
 
